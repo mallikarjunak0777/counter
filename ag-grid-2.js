@@ -48,6 +48,23 @@ const arr = [
 const filteredArr = validateThreshold(arr);
 console.log(filteredArr);
 
+function compareArraysOfObjects(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false; // Arrays have different lengths, not the same
+  }
+
+  return arr1.every((obj1, index) => {
+    const obj2 = arr2[index];
+
+    if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+      return false; // Objects have different number of properties, not the same
+    }
+
+    return Object.entries(obj1).every(([key, value]) => {
+      return obj2.hasOwnProperty(key) && obj2[key] === value;
+    });
+  });
+}
 
   return (
     <div>
