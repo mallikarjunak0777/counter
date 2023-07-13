@@ -66,6 +66,33 @@ function compareArraysOfObjects(arr1, arr2) {
   });
 }
 
+  
+  function sortAndFormatDates(data) {
+  const formattedData = data.map(obj => ({
+    ...obj,
+    termdate: new Date(obj.termdate).toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    })
+  }));
+
+  formattedData.sort((a, b) => new Date(a.termdate) - new Date(b.termdate));
+
+  return formattedData;
+}
+
+// Example usage
+const data = [
+  { name: 'Object 1', termdate: '2023-02-15' },
+  { name: 'Object 2', termdate: '2023-01-10' },
+  { name: 'Object 3', termdate: '2023-03-05' }
+];
+
+const sortedAndFormattedData = sortAndFormatDates(data);
+console.log(sortedAndFormattedData);
+
+
   return (
     <div>
       <table>
