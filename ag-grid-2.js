@@ -19,6 +19,20 @@ const Table = () => {
       prevData.map((row, i) => (i === index ? { ...row, [name]: value } : row))
     );
   };
+  function checkAllColumnsPresent(arrayOfObjects) {
+  const lastRowIndex = arrayOfObjects.length - 1;
+
+  return arrayOfObjects.every((obj, index) => {
+    // Exclude column3 check for non-last rows
+    if (index !== lastRowIndex) {
+      return Object.entries(obj).every(([key, value]) => {
+        return key === 'column3' || (value !== null && value !== undefined && value !== '');
+      });
+    }
+
+    return true; // Skip column3 check for the last row
+  });
+}
   function validateThreshold(data) {
   const filteredData = data.filter((obj, index) => {
     if (index === data.length - 1) {
