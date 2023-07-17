@@ -20,6 +20,28 @@ const Table = () => {
     );
   };
   function checkAllColumnsPresent(arrayOfObjects) {
+  const lastRowIndex = arrayOfObjects.length - 1;
+
+  for (let i = 0; i < arrayOfObjects.length; i++) {
+    const obj = arrayOfObjects[i];
+
+    if (i === lastRowIndex) {
+      continue; // Skip column3 check for the last row
+    }
+
+    for (const key in obj) {
+      if (key !== 'column3') {
+        const value = obj[key];
+        if (value === null || value === undefined || value === '') {
+          return false; // Value is missing or empty in a non-last row
+        }
+      }
+    }
+  }
+
+  return true; // All columns' values are present in all objects, except the last row's column3
+}
+  function checkAllColumnsPresent(arrayOfObjects) {
   for (let i = 0; i < arrayOfObjects.length; i++) {
     const obj = arrayOfObjects[i];
 
