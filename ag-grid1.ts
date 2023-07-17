@@ -8,6 +8,26 @@ const Table = () => {
     { id: 3, name: 'Bob', age: 35 },
     { id: 4, name: 'Alice', age: null },
   ];
+  function checkAllColumnsPresent(arrayOfObjects) {
+  const lastRowIndex = arrayOfObjects.length - 1;
+
+  for (let i = 0; i < lastRowIndex; i++) {
+    const obj = arrayOfObjects[i];
+
+    for (const key in obj) {
+      if (i === lastRowIndex && key === 'column3') {
+        continue; // Skip column3 check for the last row
+      }
+
+      const value = obj[key];
+      if (value === null || value === undefined || value === '') {
+        return false; // Value is missing or empty in a non-last row
+      }
+    }
+  }
+
+  return true; // All columns' values are present in all objects, except the last row's column3
+}
 
   return (
     <table>
