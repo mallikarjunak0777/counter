@@ -45,6 +45,19 @@ const arr = [
   { id: 3, highthreshValue: '', lowthreshValue: '7' }
 ];
 
+  function checkAllColumnsPresent(arrayOfObjects) {
+  const rowsToCheck = arrayOfObjects.slice(0, -1); // Exclude the last row
+  
+  return rowsToCheck.every(obj => {
+    return Object.entries(obj).every(([key, value]) => {
+      if (key !== 'column3') {
+        return value !== null && value !== undefined && value !== '';
+      }
+      return true; // Skip column3 check for all other rows
+    });
+  });
+}
+
 const filteredArr = validateThreshold(arr);
 console.log(filteredArr);
 
