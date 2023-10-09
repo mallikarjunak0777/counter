@@ -170,17 +170,26 @@ function CustomDropdown({ options, selectedValue, onSelect }) {
 
 
 
+// Table.js
+import React, { useState } from 'react';
+import CustomDropdown from './Dropdown';
 
 function Table() {
   const [data, setData] = useState([
-    { id: 1, name: 'Row 1', selectedValue: 'Option 1', options: ['Option 1', 'Option 2', 'Option 3'] },
-    { id: 2, name: 'Row 2', selectedValue: 'Option 2', options: ['Option 1', 'Option 2', 'Option 3'] },
+    { id: 1, name: 'Row 1', selectedValue1: 'Option 1', selectedValue2: 'Option A', options1: ['Option 1', 'Option 2', 'Option 3'], options2: ['Option A', 'Option B', 'Option C'] },
+    { id: 2, name: 'Row 2', selectedValue1: 'Option 2', selectedValue2: 'Option B', options1: ['Option 1', 'Option 2', 'Option 3'], options2: ['Option A', 'Option B', 'Option C'] },
     // Add more rows as needed
   ]);
 
-  const handleDropdownSelect = (selectedValue, rowIndex) => {
+  const handleDropdown1Select = (selectedValue, rowIndex) => {
     const updatedData = [...data];
-    updatedData[rowIndex].selectedValue = selectedValue;
+    updatedData[rowIndex].selectedValue1 = selectedValue;
+    setData(updatedData);
+  };
+
+  const handleDropdown2Select = (selectedValue, rowIndex) => {
+    const updatedData = [...data];
+    updatedData[rowIndex].selectedValue2 = selectedValue;
     setData(updatedData);
   };
 
@@ -188,8 +197,10 @@ function Table() {
     const newRow = {
       id: data.length + 1,
       name: `Row ${data.length + 1}`,
-      selectedValue: 'Option 1',
-      options: ['Option 1', 'Option 2', 'Option 3'],
+      selectedValue1: 'Option 1',
+      selectedValue2: 'Option A',
+      options1: ['Option 1', 'Option 2', 'Option 3'],
+      options2: ['Option A', 'Option B', 'Option C'],
     };
     setData([...data, newRow]);
   };
@@ -201,7 +212,8 @@ function Table() {
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Dropdown</th>
+            <th>Dropdown 1</th>
+            <th>Dropdown 2</th>
           </tr>
         </thead>
         <tbody>
@@ -211,9 +223,16 @@ function Table() {
               <td>{row.name}</td>
               <td>
                 <CustomDropdown
-                  options={row.options}
-                  selectedValue={row.selectedValue}
-                  onSelect={(selectedValue) => handleDropdownSelect(selectedValue, index)}
+                  options={row.options1}
+                  selectedValue={row.selectedValue1}
+                  onSelect={(selectedValue) => handleDropdown1Select(selectedValue, index)}
+                />
+              </td>
+              <td>
+                <CustomDropdown
+                  options={row.options2}
+                  selectedValue={row.selectedValue2}
+                  onSelect={(selectedValue) => handleDropdown2Select(selectedValue, index)}
                 />
               </td>
             </tr>
@@ -226,5 +245,6 @@ function Table() {
 }
 
 export default Table;
+
 
 
