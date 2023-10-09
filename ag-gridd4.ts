@@ -143,3 +143,88 @@ const App = () => {
 
 export default App;
 
+// Table.js
+import React, { useState } from 'react';
+
+// Dropdown.js
+
+import Dropdown from 'react-bootstrap/Dropdown';
+
+function CustomDropdown({ options, selectedValue, onSelect }) {
+  return (
+    <Dropdown onSelect={onSelect}>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        {selectedValue}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        {options.map((option, index) => (
+          <Dropdown.Item key={index} eventKey={option} active={selectedValue === option}>
+            {option}
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+}
+
+
+
+
+function Table() {
+  const [data, setData] = useState([
+    { id: 1, name: 'Row 1', selectedValue: 'Option 1', options: ['Option 1', 'Option 2', 'Option 3'] },
+    { id: 2, name: 'Row 2', selectedValue: 'Option 2', options: ['Option 1', 'Option 2', 'Option 3'] },
+    // Add more rows as needed
+  ]);
+
+  const handleDropdownSelect = (selectedValue, rowIndex) => {
+    const updatedData = [...data];
+    updatedData[rowIndex].selectedValue = selectedValue;
+    setData(updatedData);
+  };
+
+  const addRow = () => {
+    const newRow = {
+      id: data.length + 1,
+      name: `Row ${data.length + 1}`,
+      selectedValue: 'Option 1',
+      options: ['Option 1', 'Option 2', 'Option 3'],
+    };
+    setData([...data, newRow]);
+  };
+
+  return (
+    <div>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Dropdown</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={index}>
+              <td>{row.id}</td>
+              <td>{row.name}</td>
+              <td>
+                <CustomDropdown
+                  options={row.options}
+                  selectedValue={row.selectedValue}
+                  onSelect={(selectedValue) => handleDropdownSelect(selectedValue, index)}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button onClick={addRow}>Add Row</button>
+    </div>
+  );
+}
+
+export default Table;
+
+
