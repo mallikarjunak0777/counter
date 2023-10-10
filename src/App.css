@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+.table-container {
+  width: 300px; /* Adjust the width as needed */
+  overflow-x: scroll; /* Enable horizontal scrollbar */
+}
+
+table {
+  width: 100%; /* Use 100% width to fit the container */
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Add border for the entire table */
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd; /* Add border to header cells and data cells */
+}
+
+th {
+  background-color: #f2f2f2;
+}
